@@ -3,19 +3,34 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import PostsDisplay from './PostsDisplay'
 import Post from './Post'
+import PostForm from './PostForm'
 import { withRouter } from 'react-router-dom';
-
-
-
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const Main = () => {
     const [posts, setposts] = useState([]);
     const [post, setpost] = useState(null);
+    const [edit, setedit] = useState(null);
+    const [editInd, seteditind] = useState(null);
 
     function handlePostClick(post) {
         setpost(post);
+        setedit(null);
+        seteditind(null);
+    }
+
+    function handleEditPost(post, ind) {
+        setpost(null);
+        setedit(post);
+        seteditind(ind);
+    }
+
+    function handleSubmitEdit(updatedpost) {
+        setposts([...posts.slice(0, editInd), updatedpost, ...posts.slice(editInd + 1)])
+        setedit(null)
+        seteditind(null)
+        setpost(updatedpost)
     }
 
     function handlePostDelete(index, p) {
@@ -46,8 +61,6 @@ const Main = () => {
     }
         , []);
 
-    console.log(posts)
-
 
     return (
         <Grid container justify="center">
@@ -62,14 +75,18 @@ const Main = () => {
                 {posts.length === 0 ?
                     <LinearProgress />
                     :
-                    <PostsDisplay posts={posts} handlePostClick={handlePostClick} handlePostDelete={handlePostDelete} />
+                    <PostsDisplay posts={posts} handlePostClick={handlePostClick} handlePostDelete={handlePostDelete} handleEditPost = {handleEditPost} />
                 }
 
-                {post === null ?
+                {post === null && edit === null?
                     <div>
                     </div>
-                    :
+                    : post !== null ?
                     <Post post={post} />
+                    :
+                    <Grid style={{width: "60%"}} >
+                    <PostForm post = {edit} handleSubmitEdit = {handleSubmitEdit} />
+                    </Grid>
                 }
             </Grid>
 

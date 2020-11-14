@@ -10,10 +10,10 @@ const Post = (props) => {
             direction="column"
             justify="flex-start"
             alignItems="center"
-            style={{width:"50%", maxHeight: "100%", overflow: "auto"}}
+            style={{width:"60%", maxHeight: "100%", overflow: "auto"}}
 
         >
-            <Typography variant="h1" component="h2" >
+            <Typography variant="h2" gutterBottom>
                 {props.post.title}
             </Typography>
             <Typography variant="h6" gutterBottom>
