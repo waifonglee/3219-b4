@@ -1,0 +1,12 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Comfortaa', sans-serif;
+  color: dimgray;
+}
+
+@font-face {
+  font-family: "Comfortaa";
+  src: url("assets/Comfortaa-VariableFont_wght.ttf") format("truetype")
+}
